@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMR - Patient Diagnostics</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Function to open the correct EMR form based on UID suffix
+        function openEMRForm() {
+            const uid = document.getElementById('uid').value;
+            const suffix = uid.split('-').pop(); // Extract the suffix from UID
+
+            // Hide all forms first
+            document.querySelectorAll('.emr-form').forEach(function(form) {
+                form.style.display = 'none';
+            });
+
+            // Display the appropriate form based on the UID suffix
+            switch (suffix) {
+                case 'CE': // Comprehensive Eye Camp
+                    document.getElementById('ce-form').style.display = 'block';
+                    break;
+                case 'DR': // Diabetic Retinopathy Camp
+                    document.getElementById('dr-form').style.display = 'block';
+                    break;
+                case 'SC': // School Screening Camp
+                    document.getElementById('sc-form').style.display = 'block';
+                    break;
+                case 'PC': // Paediatric Screening Camp
+                    document.getElementById('pc-form').style.display = 'block';
+                    break;
+                case 'WP': // Workplace Screening Camp
+                    document.getElementById('wp-form').style.display = 'block';
+                    break;
+                default:
+                    alert('Invalid UID. Please try again.');
+            }
+        }
+    </script>
+</head>
+<body style="background: url('refraction-bg.png') no-repeat center center fixed;">
+    <div class="container" style="background-color: rgba(240, 248, 255, 0.575);">
+        <h2>Enter Patient UID to Open EMR</h2>
+        <div class="form-group">
+            <label for="uid">Patient UID:</label>
+            <input type="text" id="uid" name="uid" required placeholder="Enter UID">
+        </div>
+        <div class="form-group">
+            <button type="button" onclick="openEMRForm()">Open EMR Form</button>
+        </div>
+
+        <!-- EMR forms for different camp types -->
+        
+        <!-- Comprehensive Eye Camp EMR -->
+        <div id="ce-form" class="emr-form" style="display: none;">
+            <h3>Comprehensive Eye Camp EMR</h3>
+            <form>
+                <div class="form-group">
+                    <label for="eye-vision">Eye Vision:</label>
+                    <input type="text" id="eye-vision" name="eye-vision" required>
+                </div>
+                <div class="form-group">
+                    <label for="eye-pressure">Intraocular Pressure:</label>
+                    <input type="text" id="eye-pressure" name="eye-pressure" required>
+                </div>
+                <div class="form-group">
+                    <label for="eye-diagnosis">Diagnosis:</label>
+                    <input type="text" id="eye-diagnosis" name="eye-diagnosis" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" style="color: rgba(93, 29, 49, 0.681);">Submit EMR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Diabetic Retinopathy Camp EMR -->
+        <div id="dr-form" class="emr-form" style="display: none;">
+            <h3>Diabetic Retinopathy Camp EMR</h3>
+            <form>
+                <div class="form-group">
+                    <label for="retina-vision">Vision Test:</label>
+                    <input type="text" id="retina-vision" name="retina-vision" required>
+                </div>
+                <div class="form-group">
+                    <label for="retina-vascular">Vascular Changes:</label>
+                    <input type="text" id="retina-vascular" name="retina-vascular" required>
+                </div>
+                <div class="form-group">
+                    <label for="retina-diagnosis">Diagnosis:</label>
+                    <input type="text" id="retina-diagnosis" name="retina-diagnosis" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit EMR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- School Screening Camp EMR -->
+        <div id="sc-form" class="emr-form" style="display: none;">
+            <h3>School Screening Camp EMR</h3>
+            <form>
+                <div class="form-group">
+                    <label for="vision-test">Vision Test:</label>
+                    <input type="text" id="vision-test" name="vision-test" required>
+                </div>
+                <div class="form-group">
+                    <label for="eye-symptoms">Symptoms:</label>
+                    <input type="text" id="eye-symptoms" name="eye-symptoms" required>
+                </div>
+                <div class="form-group">
+                    <label for="school-diagnosis">Diagnosis:</label>
+                    <input type="text" id="school-diagnosis" name="school-diagnosis" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit EMR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Paediatric Screening Camp EMR -->
+        <div id="pc-form" class="emr-form" style="display: none;">
+            <h3>Paediatric Screening Camp EMR</h3>
+            <form>
+                <div class="form-group">
+                    <label for="child-vision">Vision Test:</label>
+                    <input type="text" id="child-vision" name="child-vision" required>
+                </div>
+                <div class="form-group">
+                    <label for="child-symptoms">Symptoms:</label>
+                    <input type="text" id="child-symptoms" name="child-symptoms" required>
+                </div>
+                <div class="form-group">
+                    <label for="child-diagnosis">Diagnosis:</label>
+                    <input type="text" id="child-diagnosis" name="child-diagnosis" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit EMR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Workplace Screening Camp EMR -->
+        <div id="wp-form" class="emr-form" style="display: none;">
+            <h3>Workplace Screening Camp EMR</h3>
+            <form>
+                <div class="form-group">
+                    <label for="workplace-vision">Vision Test:</label>
+                    <input type="text" id="workplace-vision" name="workplace-vision" required>
+                </div>
+                <div class="form-group">
+                    <label for="workplace-symptoms">Symptoms:</label>
+                    <input type="text" id="workplace-symptoms" name="workplace-symptoms" required>
+                </div>
+                <div class="form-group">
+                    <label for="workplace-diagnosis">Diagnosis:</label>
+                    <input type="text" id="workplace-diagnosis" name="workplace-diagnosis" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit EMR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

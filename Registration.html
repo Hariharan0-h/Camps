@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration & EMR</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Function to generate a simple UID with camp suffix
+        function generateUID(campType) {
+            const suffixMapping = {
+                'comprehensive': 'CE',
+                'diabetic': 'DR',
+                'school': 'SC',
+                'paediatric': 'PC',
+                'workplace': 'WP'
+            };
+            const suffix = suffixMapping[campType] || 'XX'; // Default to 'XX' if no camp type is selected
+            return 'UID-' + Math.floor(Math.random() * 1000000) + '-' + suffix;
+        }
+
+        // Function to calculate Age based on DOB
+        function calculateAge() {
+            var dob = document.getElementById('dob').value;
+            if (dob) {
+                var today = new Date();
+                var birthDate = new Date(dob);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var monthDifference = today.getMonth() - birthDate.getMonth();
+                if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                document.getElementById('age').value = age;
+            }
+        }
+
+        // Function to handle patient registration and redirect to EMR page
+        function registerPatient(event) {
+            event.preventDefault();
+            const campType = document.getElementById('camp-type').value; // Get selected camp type
+            const uid = generateUID(campType); // Pass the camp type to generateUID function
+            alert('Patient Registered! Your UID is: ' + uid);
+
+            // Redirect to emr.html and pass UID as a query parameter
+            window.location.href = 'emr.html?uid=' + encodeURIComponent(uid);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Patient Registration Form</h2>
+        <form onsubmit="registerPatient(event)">
+            <div class="form-group">
+                <label for="name">Patient Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required onchange="calculateAge()">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="camp-type">Camp Type:</label>
+                <select id="camp-type" name="camp-type" required>
+                    <option value="" disabled selected>Select Camp Type</option>
+                    <option value="comprehensive">Comprehensive Eye Camp</option>
+                    <option value="diabetic">Diabetic Retinopathy Camp</option>
+                    <option value="school">School Screening Camp</option>
+                    <option value="paediatric">Paediatric Screening Camp</option>
+                    <option value="workplace">Workplace Screening Camp</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="contact">Contact Number:</label>
+                <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required placeholder="1234567890">
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
